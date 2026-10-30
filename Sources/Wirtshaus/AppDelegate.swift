@@ -103,6 +103,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             p.hidesOnDeactivate = false
             p.level = .statusBar
             p.collectionBehavior = [.moveToActiveSpace, .fullScreenAuxiliary]
+            // a settings panel: only "close" means something here
+            p.standardWindowButton(.miniaturizeButton)?.isHidden = true
+            p.standardWindowButton(.zoomButton)?.isHidden = true
             p.setContentSize(host.view.fittingSize)
             p.center()
             p.delegate = self

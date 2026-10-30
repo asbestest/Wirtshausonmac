@@ -1,15 +1,34 @@
 Wirtshaus covers my Mac – Spielkarten und Kleinkram über allem
 ===============================================================
 
-Installieren
-1. "Wirtshaus covers my Mac.app" in den Ordner "Programme" ziehen.
-2. Doppelklicken. Beim ersten Mal meldet macOS, dass die App nicht
-   überprüft werden kann (sie stammt nicht aus dem App Store). Dann:
-   Systemeinstellungen → Datenschutz & Sicherheit → ganz unten bei
-   "Wirtshaus covers my Mac" auf "Trotzdem öffnen" klicken und bestätigen.
+Installieren – so geht's am schnellsten (1 Minute, nur einmal nötig)
 
-   Alternativ im Terminal:
+1. Wirtshaus covers my Mac.app in den Programme-Ordner ziehen.
+
+2. Terminal öffnen:
+   cmd + Leertaste drücken, "Terminal" tippen, Enter.
+
+3. Diese Zeile kopieren, ins Terminal einfügen (cmd + V) und Enter drücken:
+
    xattr -dr com.apple.quarantine "/Applications/Wirtshaus covers my Mac.app"
+
+   Es kommt keine Rückmeldung – das ist richtig so. Terminal kann zu.
+
+4. Wirtshaus covers my Mac per Doppelklick öffnen. Fertig.
+
+Warum das nötig ist
+Alles, was per WhatsApp, AirDrop, Mail oder Browser auf den Mac kommt, setzt
+macOS unter "Quarantäne". Bei Apps, die nicht bei Apple registriert sind
+(kostet den Entwickler 99 €/Jahr), blockiert macOS dann den Start mit
+"Apple konnte nicht überprüfen ..." oder "... ist beschädigt".
+Die Zeile aus Schritt 3 nimmt nur diese Markierung von Wirtshaus covers my Mac weg –
+sonst ändert sie nichts am Mac.
+
+Ohne Terminal geht's auch (dauert etwas länger):
+Wirtshaus covers my Mac einmal per Doppelklick öffnen, die Warnung mit "Fertig" schließen.
+Dann Systemeinstellungen > Datenschutz & Sicherheit, ganz nach unten scrollen,
+bei Wirtshaus covers my Mac auf "Dennoch öffnen" klicken und mit dem Mac-Passwort bestätigen.
+(Bei der Meldung "ist beschädigt" klappt nur der Weg übers Terminal.)
 
 Bedienen
 - Die App sitzt oben in der Menüleiste (zwei Karten-Symbol).
