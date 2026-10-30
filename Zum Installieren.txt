@@ -1,0 +1,35 @@
+Wirtshaus covers my Mac – Spielkarten und Kleinkram über allem
+===============================================================
+
+Installieren
+1. "Wirtshaus covers my Mac.app" in den Ordner "Programme" ziehen.
+2. Doppelklicken. Beim ersten Mal meldet macOS, dass die App nicht
+   überprüft werden kann (sie stammt nicht aus dem App Store). Dann:
+   Systemeinstellungen → Datenschutz & Sicherheit → ganz unten bei
+   "Wirtshaus covers my Mac" auf "Trotzdem öffnen" klicken und bestätigen.
+
+   Alternativ im Terminal:
+   xattr -dr com.apple.quarantine "/Applications/Wirtshaus covers my Mac.app"
+
+Bedienen
+- Die App sitzt oben in der Menüleiste (zwei Karten-Symbol).
+  Im Vollbild: Maus an den oberen Bildschirmrand, dann erscheint sie.
+- Karte ziehen = verschieben
+- Doppelklick = umdrehen
+- Rechtsklick = Menü (Karte wählen, Rückseite, Größe, entfernen …)
+- Über der Karte scrollen / mit zwei Fingern zoomen = Größe ändern
+- Mit zwei Fingern drehen oder ⌥ + Scrollen = drehen
+  (auch per Schieberegler "Drehen", "Gerade richten" stellt sie wieder auf)
+- Schieberegler "Größe" im Menü und in den Einstellungen (8 bis 900 pt)
+- Blatt umschalten: Französisch (Skat: Buben und Asse) oder
+  Bayerisch (Schafkopf: Ober, Unter und Säue – der Alte, der Blaue,
+  die Blaue, die Hundsgfickte …)
+- Dazulegen: Maß Bier (schäumt), Zigarette (raucht), Bratwurst und
+  Kaffee (dampfen), Brezn. Durch Rauch und Dampf kann man durchklicken.
+
+Überall, auch im Vollbild:
+- ⌃⌥⌘K  alles ein-/ausblenden
+- ⌃⌥⌘L  Fixieren an/aus – fixierte Karten lassen jeden Klick an die
+         App darunter durch und können nicht verrutschen
+
+Läuft ab macOS 14 (Sonoma), auf Apple-Silicon- und Intel-Macs.
