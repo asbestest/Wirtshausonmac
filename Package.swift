@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "Wirtshaus",
+    name: "Wirtshausonmac",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "Wirtshaus",
-            path: "Sources/Wirtshaus"
+            name: "Wirtshausonmac",
+            path: "Sources/Wirtshausonmac"
         )
     ],
     swiftLanguageModes: [.v5]

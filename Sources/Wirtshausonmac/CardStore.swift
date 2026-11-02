@@ -22,7 +22,7 @@ final class CardStore: ObservableObject {
     private let defaults = UserDefaults.standard
 
     init() {
-        CardStore.migrateFromCardonmac()
+        CardStore.migrateOldSettings()
         defaults.register(defaults: ["visible": true, "locked": false, "deck": Deck.french.rawValue])
         visible = defaults.bool(forKey: "visible")
         locked = defaults.bool(forKey: "locked")
@@ -48,12 +48,16 @@ final class CardStore: ObservableObject {
         if let m = NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved], handler: { moved($0); return $0 }) { monitors.append(m) }
     }
 
-    /// The app was called Cardonmac before; take over its layout once.
-    private static func migrateFromCardonmac() {
+    /// The app was called "Wirtshaus covers my Mac" and Cardonmac before; take over the newest layout once.
+    private static func migrateOldSettings() {
         let d = UserDefaults.standard
-        guard d.object(forKey: "items") == nil, let old = UserDefaults(suiteName: "io.github.asbestest.cardonmac") else { return }
-        for key in ["items", "deck", "visible", "locked", "didShowWelcome"] {
-            if let v = old.object(forKey: key) { d.set(v, forKey: key) }
+        guard d.object(forKey: "items") == nil else { return }
+        for id in ["io.github.asbestest.wirtshaus", "io.github.asbestest.cardonmac"] {
+            guard let old = UserDefaults(suiteName: id), old.object(forKey: "items") != nil else { continue }
+            for key in ["items", "deck", "visible", "locked", "didShowWelcome"] {
+                if let v = old.object(forKey: key) { d.set(v, forKey: key) }
+            }
+            return
         }
     }
 

@@ -29,15 +29,15 @@ Damit lassen sich kleine Dinge auf dem Bildschirm verdecken. Geschwister-Projekt
 ## Bauen
 
 ```sh
-scripts/build.sh            # "build/Wirtshaus covers my Mac.app" (Apple silicon + Intel)
+scripts/build.sh            # build/Wirtshausonmac.app (Apple silicon + Intel)
 scripts/build.sh --install  # nach /Applications kopieren und starten
-scripts/package.sh          # dist/Wirtshaus-covers-my-Mac-<version>.zip zum Weitergeben
+scripts/package.sh          # dist/Wirtshausonmac-<version>.zip zum Weitergeben
 ```
 
-Braucht nur die Xcode Command Line Tools. Debug (Programm `Wirtshaus` im App-Bundle): `--snapshot cards.png` rendert alle Karten,
+Braucht nur die Xcode Command Line Tools. Debug (Programm `Wirtshausonmac` im App-Bundle): `--snapshot cards.png` rendert alle Karten,
 `--icon icon.png` das App-Icon, `--settings settings.png` das Einstellungsfenster, `--turned turned.png` gedrehte Dinge samt Klickbereich, `--bench` misst die Zeichenzeit der Dinge.
 
-Hieß früher Cardonmac; die Einstellungen von dort werden beim ersten Start übernommen.
+Hieß früher Cardonmac und „Wirtshaus covers my Mac.app“; die Einstellungen von dort werden beim ersten Start übernommen.
 
 ## Weitergeben
 

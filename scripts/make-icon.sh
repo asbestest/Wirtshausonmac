@@ -4,7 +4,7 @@ set -e
 cd "$(dirname "$0")/.."
 swift build -c release
 TMP=$(mktemp -d)
-"$(swift build -c release --show-bin-path)/Wirtshaus" --icon "$TMP/icon.png"
+"$(swift build -c release --show-bin-path)/Wirtshausonmac" --icon "$TMP/icon.png"
 SET="$TMP/AppIcon.iconset"
 mkdir "$SET"
 for s in 16 32 128 256 512; do

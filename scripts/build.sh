@@ -1,5 +1,5 @@
 #!/bin/sh
-# Builds "Wirtshaus covers my Mac.app" (Apple silicon + Intel) into ./build.
+# Builds Wirtshausonmac.app (Apple silicon + Intel) into ./build.
 # Usage: scripts/build.sh [--run] [--install]   (--install copies the app to /Applications and starts it)
 set -e
 cd "$(dirname "$0")/.."
@@ -10,13 +10,13 @@ cd "$(dirname "$0")/.."
 BINS=""
 for arch in arm64 x86_64; do
     swift build -c release --arch $arch
-    BINS="$BINS $(swift build -c release --arch $arch --show-bin-path)/Wirtshaus"
+    BINS="$BINS $(swift build -c release --arch $arch --show-bin-path)/Wirtshausonmac"
 done
-NAME="Wirtshaus covers my Mac.app"
+NAME=Wirtshausonmac.app
 APP="build/$NAME"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-lipo -create $BINS -output "$APP/Contents/MacOS/Wirtshaus"
+lipo -create $BINS -output "$APP/Contents/MacOS/Wirtshausonmac"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
 cp Resources/AppIcon.icns "$APP/Contents/Resources/"
 cp -R Resources/bavarian "$APP/Contents/Resources/"
@@ -25,12 +25,12 @@ echo "Built $APP"
 
 case "$1 $2" in
     *--install*)
-        pkill -x Wirtshaus 2>/dev/null && sleep 1 || true
+        pkill -x Wirtshausonmac 2>/dev/null && sleep 1 || true
         rm -rf "/Applications/$NAME"
         cp -R "$APP" /Applications/
         open "/Applications/$NAME"
         echo "Installed /Applications/$NAME" ;;
     *--run*)
-        pkill -x Wirtshaus 2>/dev/null && sleep 1 || true
+        pkill -x Wirtshausonmac 2>/dev/null && sleep 1 || true
         open "$APP" ;;
 esac
