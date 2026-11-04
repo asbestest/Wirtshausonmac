@@ -8,7 +8,7 @@ OUT="dist/Wirtshausonmac-$VERSION"
 rm -rf "$OUT" "$OUT.zip"
 mkdir -p "$OUT"
 cp -R build/Wirtshausonmac.app "$OUT/"
-cp "Zum Installieren.txt" "$OUT/"
+cp Install.txt "Zum Installieren.txt" "$OUT/"
 xattr -cr "$OUT"
 # --norsrc keeps the ._ files of extended attributes out of the zip
 ditto -c -k --norsrc --keepParent "$OUT" "$OUT.zip"

@@ -52,7 +52,7 @@ struct SettingsView: View {
                     controls(item)
                 }
             } else {
-                Text("Nichts auf dem Bildschirm – leg unten eine Karte oder etwas anderes hin.")
+                Text(L("Nothing on screen – put down a card or something else below."))
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, minHeight: 60)
             }
@@ -77,7 +77,7 @@ struct SettingsView: View {
             Image(nsImage: NSApp.applicationIconImage).resizable().frame(width: 40, height: 40)
             VStack(alignment: .leading, spacing: 2) {
                 Text("Wirtshaus covers my Mac").font(.title2.weight(.bold))
-                Text("Spielkarten und Kleinkram, die über allem schweben – auch über Browsern und Vollbild-Apps.")
+                Text(L("Playing cards and bits and pieces that float above everything – even browsers and full-screen apps."))
                     .font(.callout).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -94,7 +94,7 @@ struct SettingsView: View {
             }
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text("Größe")
+                    Text(L("Size"))
                     Spacer()
                     Text("\(Int(item.height.rounded())) pt").monospacedDigit().foregroundStyle(.secondary)
                 }
@@ -109,33 +109,33 @@ struct SettingsView: View {
             }
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text("Drehen")
+                    Text(L("Rotate"))
                     Spacer()
                     Text("\(Int(item.angle.rounded()))°").monospacedDigit().foregroundStyle(.secondary)
-                    Button("Gerade") { store.setAngle(0) }
+                    Button(L("Straight")) { store.setAngle(0) }
                         .controlSize(.small)
                         .disabled(item.angle == 0)
                 }
                 HStack(spacing: 8) {
                     Button { store.rotate(by: 15) } label: { Image(systemName: "rotate.left") }
-                        .buttonStyle(.borderless).help("15° nach links")
+                        .buttonStyle(.borderless).help(L("15° to the left"))
                     Slider(value: Binding(get: { item.angle }, set: { store.setAngle($0) }), in: -180...180)
                         .tint(accent)
                     Button { store.rotate(by: -15) } label: { Image(systemName: "rotate.right") }
-                        .buttonStyle(.borderless).help("15° nach rechts")
+                        .buttonStyle(.borderless).help(L("15° to the right"))
                 }
                 .foregroundStyle(.secondary)
             }
             HStack(spacing: 10) {
                 if item.isCard {
-                    Button(item.faceUp ? "Rückseite zeigen" : "Vorderseite zeigen") { store.flip() }
+                    Button(item.faceUp ? L("Show the back") : L("Show the front")) { store.flip() }
                 }
-                Button("Entfernen", role: .destructive) { store.remove() }
+                Button(L("Remove"), role: .destructive) { store.remove() }
             }
             Toggle(isOn: Binding(get: { store.locked }, set: { store.setLocked($0) })) {
                 VStack(alignment: .leading, spacing: 1) {
-                    Text("Fixieren")
-                    Text("Nichts verrutscht mehr, alle Klicks gehen an die App darunter.")
+                    Text(L("Lock"))
+                    Text(L("Nothing moves any more, all clicks go to the app below."))
                         .font(.caption).foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -150,7 +150,7 @@ struct SettingsView: View {
     private var deckSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text("Karten").font(.headline)
+                Text(L("Cards")).font(.headline)
                 Spacer()
                 Picker("", selection: Binding(get: { store.deck }, set: { store.setDeck($0) })) {
                     ForEach(Deck.allCases, id: \.self) { d in Text("\(d.title) · \(d.game)").tag(d) }
@@ -169,12 +169,12 @@ struct SettingsView: View {
                                     .help(CardNames.full(store.deck, rank, suit))
                             }
                         }
-                        Text(rank == .sau ? "Säue" : rank == .ace ? "Asse" : rank == .jack ? "Buben" : rank.title)
+                        Text(rank == .sau ? L("Sows") : rank == .ace ? L("Aces") : rank == .jack ? L("Jacks") : rank.title)
                             .font(.caption).foregroundStyle(.secondary)
                     }
                 }
             }
-            Text(activeCard == nil ? "Klick legt die Karte neu hin." : "Klick zeigt die Karte auf der ausgewählten Karte. Bube ↔ Ober und Ass ↔ Sau werden beim Wechsel umgetauscht.")
+            Text(activeCard == nil ? L("A click puts the card down.") : L("A click shows the card on the selected card. Jack ↔ Ober and Ace ↔ Sow swap when you switch decks."))
                 .font(.caption).foregroundStyle(.tertiary)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -182,7 +182,7 @@ struct SettingsView: View {
 
     private var backSection: some View {
         HStack(spacing: 8) {
-            Text("Rückseite").font(.headline).frame(width: 90, alignment: .leading)
+            Text(L("Back")).font(.headline).frame(width: 90, alignment: .leading)
             ForEach(CardBack.allCases, id: \.self) { b in
                 let on = activeCard.map { !$0.faceUp && $0.back == b } ?? false
                 thumb(.back(store.deck, b), height: 52, selected: on) { store.pickBack(b) }
@@ -190,14 +190,14 @@ struct SettingsView: View {
             }
             Spacer()
             if store.items.filter(\.isCard).count > 1, let c = activeCard {
-                Button("Für alle Karten") { store.setBackForAll(c.back) }.controlSize(.small)
+                Button(L("For all cards")) { store.setBackForAll(c.back) }.controlSize(.small)
             }
         }
     }
 
     private var propSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Dazulegen").font(.headline)
+            Text(L("Add")).font(.headline)
             HStack(alignment: .bottom, spacing: 14) {
                 ForEach(Prop.allCases, id: \.self) { p in
                     Button { store.addProp(p) } label: {
@@ -216,7 +216,7 @@ struct SettingsView: View {
 
     private var itemList: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Auf dem Bildschirm").font(.headline)
+            Text(L("On screen")).font(.headline)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 6) {
                     ForEach(store.items) { i in
@@ -245,15 +245,15 @@ struct SettingsView: View {
     private var footer: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Toggle("Beim Anmelden starten", isOn: Binding(get: { store.launchAtLogin },
+                Toggle(L("Start at login"), isOn: Binding(get: { store.launchAtLogin },
                                                               set: { store.setLaunchAtLogin($0) }))
                     .toggleStyle(.switch).controlSize(.small)
                 if let e = store.loginError { Text(e).font(.caption).foregroundStyle(.red) }
                 Spacer()
-                Button("Alles entfernen") { store.removeAll() }.disabled(store.items.isEmpty)
+                Button(L("Remove everything")) { store.removeAll() }.disabled(store.items.isEmpty)
             }
             let hk = HotKeys.modifierSymbols
-            Text("Ziehen = verschieben · Doppelklick = umdrehen · Rechtsklick = Menü · Scrollen = Größe · ⌥ + Scrollen oder zwei Finger drehen = drehen · \(hk)K ein/aus · \(hk)L fixieren")
+            Text(String(format: L("Drag = move · double-click = flip · right-click = menu · scroll = size · ⌥ + scroll or two-finger turn = rotate · %@K on/off · %@L lock"), hk, hk))
                 .font(.caption).foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
         }

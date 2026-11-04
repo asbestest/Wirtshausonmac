@@ -1,0 +1,79 @@
+/* German. The English text in the code is the key. */
+
+/* Menus */
+"New card" = "Neue Karte";
+"Selected:" = "Ausgewählt:";
+"Flip" = "Umdrehen";
+"Flip (show the back)" = "Umdrehen (Rückseite zeigen)";
+"Flip (show the front)" = "Umdrehen (Vorderseite zeigen)";
+"Remove" = "Entfernen";
+"Remove card" = "Karte entfernen";
+"Remove %@" = "%@ entfernen";
+"Hide everything" = "Alles ausblenden";
+"Show everything" = "Alles einblenden";
+"Lock – clicks go through" = "Fixieren – Klicks gehen durch";
+"Anywhere: %@K on/off · %@L lock" = "Überall: %1$@K ein/aus · %2$@L fixieren";
+"Settings …" = "Einstellungen …";
+"Quit Wirtshaus covers my Mac" = "Wirtshaus covers my Mac beenden";
+"Change to" = "Ändern zu";
+"Back" = "Rückseite";
+"Straighten" = "Gerade richten";
+"Card" = "Karte";
+"Deck" = "Blatt";
+"Add" = "Dazulegen";
+"Size" = "Größe";
+"Rotate" = "Drehen";
+
+/* Settings */
+"Nothing on screen – put down a card or something else below." = "Nichts auf dem Bildschirm – leg unten eine Karte oder etwas anderes hin.";
+"Playing cards and bits and pieces that float above everything – even browsers and full-screen apps." = "Spielkarten und Kleinkram, die über allem schweben – auch über Browsern und Vollbild-Apps.";
+"Straight" = "Gerade";
+"15° to the left" = "15° nach links";
+"15° to the right" = "15° nach rechts";
+"Show the back" = "Rückseite zeigen";
+"Show the front" = "Vorderseite zeigen";
+"Lock" = "Fixieren";
+"Nothing moves any more, all clicks go to the app below." = "Nichts verrutscht mehr, alle Klicks gehen an die App darunter.";
+"Cards" = "Karten";
+"Sows" = "Säue";
+"Aces" = "Asse";
+"Jacks" = "Buben";
+"A click puts the card down." = "Klick legt die Karte neu hin.";
+"A click shows the card on the selected card. Jack ↔ Ober and Ace ↔ Sow swap when you switch decks." = "Klick zeigt die Karte auf der ausgewählten Karte. Bube ↔ Ober und Ass ↔ Sau werden beim Wechsel umgetauscht.";
+"For all cards" = "Für alle Karten";
+"On screen" = "Auf dem Bildschirm";
+"Start at login" = "Beim Anmelden starten";
+"Only works when the app is in the Applications folder." = "Geht nur, wenn die App im Programme-Ordner liegt.";
+"Remove everything" = "Alles entfernen";
+"Drag = move · double-click = flip · right-click = menu · scroll = size · ⌥ + scroll or two-finger turn = rotate · %@K on/off · %@L lock" = "Ziehen = verschieben · Doppelklick = umdrehen · Rechtsklick = Menü · Scrollen = Größe · ⌥ + Scrollen oder zwei Finger drehen = drehen · %1$@K ein/aus · %2$@L fixieren";
+
+/* Cards */
+"French" = "Französisch";
+"Bavarian" = "Bayerisch";
+"Clubs" = "Kreuz";
+"Spades" = "Pik";
+"Hearts" = "Herz";
+"Diamonds" = "Karo";
+"Acorns" = "Eichel";
+"Leaves" = "Gras";
+"Bells" = "Schellen";
+"Jack" = "Bube";
+"Ace" = "Ass";
+"Sow" = "Sau";
+"%@ of %@" = "%2$@-%1$@";
+"Back, %@" = "Rückseite %@";
+"Red" = "Rot";
+"Blue" = "Blau";
+"Green" = "Grün";
+"Black and gold" = "Schwarz-Gold";
+"Grey" = "Grau";
+
+/* Things */
+"Beer stein" = "Maß Bier";
+"Cigarette" = "Zigarette";
+"Coffee" = "Kaffee";
+"Pretzel" = "Brezn";
+"foams" = "schäumt";
+"smokes" = "raucht";
+"steams" = "dampft";
+"shines" = "glänzt";

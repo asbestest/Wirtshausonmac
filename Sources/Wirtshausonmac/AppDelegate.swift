@@ -50,40 +50,40 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         let hk = HotKeys.modifierSymbols
         let active = store.active
 
-        menu.addItem(ActionItem("Neue Karte") { [unowned self] in self.store.addCard() })
+        menu.addItem(ActionItem(L("New card")) { [unowned self] in self.store.addCard() })
         menu.addItem(store.propsItem())
         menu.addItem(store.deckItem())
         menu.addItem(.separator())
 
         if let active {
             let title = active.title(store.deck)
-            let header = NSMenuItem(title: "Ausgewählt: \(title)", action: nil, keyEquivalent: "")
+            let header = NSMenuItem(title: L("Selected:") + " " + title, action: nil, keyEquivalent: "")
             header.isEnabled = false
             menu.addItem(header)
             if active.isCard {
-                menu.addItem(ActionItem("Umdrehen") { [unowned self] in self.store.flip() })
+                menu.addItem(ActionItem(L("Flip")) { [unowned self] in self.store.flip() })
             }
             store.addSliders(to: menu, id: nil)
-            menu.addItem(ActionItem("Entfernen") { [unowned self] in self.store.remove() })
+            menu.addItem(ActionItem(L("Remove")) { [unowned self] in self.store.remove() })
             menu.addItem(.separator())
         }
 
-        let show = ActionItem(store.visible ? "Alles ausblenden" : "Alles einblenden") { [unowned self] in
+        let show = ActionItem(store.visible ? L("Hide everything") : L("Show everything")) { [unowned self] in
             self.store.setVisible(!self.store.visible)
         }
         show.isEnabled = !store.items.isEmpty
         menu.addItem(show)
-        menu.addItem(ActionItem("Fixieren – Klicks gehen durch", on: store.locked) { [unowned self] in
+        menu.addItem(ActionItem(L("Lock – clicks go through"), on: store.locked) { [unowned self] in
             self.store.setLocked(!self.store.locked)
         })
-        let hint = NSMenuItem(title: "Überall: \(hk)K ein/aus · \(hk)L fixieren", action: nil, keyEquivalent: "")
+        let hint = NSMenuItem(title: String(format: L("Anywhere: %@K on/off · %@L lock"), hk, hk), action: nil, keyEquivalent: "")
         hint.isEnabled = false
         menu.addItem(hint)
         menu.addItem(.separator())
 
-        menu.addItem(ActionItem("Einstellungen …", key: ",") { [unowned self] in self.showSettings() })
+        menu.addItem(ActionItem(L("Settings …"), key: ",") { [unowned self] in self.showSettings() })
         menu.addItem(.separator())
-        menu.addItem(ActionItem("Wirtshaus covers my Mac beenden", key: "q") { NSApp.terminate(nil) })
+        menu.addItem(ActionItem(L("Quit Wirtshaus covers my Mac"), key: "q") { NSApp.terminate(nil) })
     }
 
     // MARK: Settings

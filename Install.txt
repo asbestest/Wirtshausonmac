@@ -1,0 +1,56 @@
+Wirtshaus covers my Mac – playing cards and bits and pieces above everything
+============================================================================
+(Deutsch: siehe "Zum Installieren.txt")
+
+Install – the fastest way (1 minute, only once)
+
+1. Drag Wirtshausonmac.app into the Applications folder.
+
+2. Open Terminal:
+   press cmd + space, type "Terminal", press Enter.
+
+3. Copy this line, paste it into Terminal (cmd + V) and press Enter:
+
+   xattr -dr com.apple.quarantine /Applications/Wirtshausonmac.app
+
+   Nothing is printed – that's how it should be. You can close Terminal.
+
+4. Double-click Wirtshausonmac.app. Done.
+
+Why this is needed
+Everything that reaches your Mac via WhatsApp, AirDrop, mail or a browser is
+put into "quarantine" by macOS. For apps that aren't registered with Apple
+(that costs the developer 99 € a year), macOS then refuses to open them with
+"Apple could not verify ..." or "... is damaged".
+The line from step 3 only removes that mark from Wirtshausonmac – it changes
+nothing else on your Mac.
+
+Without Terminal (takes a little longer):
+Double-click Wirtshausonmac once and close the warning with "Done".
+Then open System Settings > Privacy & Security, scroll all the way down,
+click "Open Anyway" next to Wirtshausonmac and confirm with your Mac password.
+(If the message says "is damaged", only the Terminal way works.)
+
+How to use it
+- The app lives in the menu bar (two-cards icon).
+  In full screen: move the mouse to the top edge of the screen and it appears.
+- Drag a card = move it
+- Double-click = flip it
+- Right-click = menu (pick a card, back, size, remove …)
+- Scroll over the card / pinch with two fingers = change the size
+- Turn with two fingers or ⌥ + scroll = rotate
+  (also with the "Rotate" slider; "Straighten" puts it upright again)
+- "Size" slider in the menu and in the settings (8 to 900 pt)
+- Switch decks: French (Skat: jacks and aces) or
+  Bavarian (Schafkopf: Ober, Unter and Sows – der Alte, der Blaue,
+  die Blaue, die Hundsgfickte …)
+- Add: beer stein (foams), cigarette (smokes), bratwurst and
+  coffee (steam), pretzel. You can click through smoke and steam.
+- Language: German when your Mac is set to German, English otherwise.
+
+Anywhere, even in full screen:
+- ⌃⌥⌘K  show/hide everything
+- ⌃⌥⌘L  lock on/off – locked cards let every click through to the
+         app below and can't be moved
+
+Runs on macOS 14 (Sonoma) or newer, on Apple silicon and Intel Macs.

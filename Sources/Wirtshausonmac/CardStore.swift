@@ -234,7 +234,7 @@ final class CardStore: ObservableObject {
             if on { try SMAppService.mainApp.register() } else { try SMAppService.mainApp.unregister() }
             loginError = nil
         } catch {
-            loginError = "Geht nur, wenn die App im Programme-Ordner liegt."
+            loginError = L("Only works when the app is in the Applications folder.")
         }
         launchAtLogin = SMAppService.mainApp.status == .enabled
     }
@@ -275,7 +275,7 @@ final class CardStore: ObservableObject {
         guard let item = item(id) else { return menu }
         if let prop = item.prop {
             addSliders(to: menu, id: id)
-            let change = NSMenuItem(title: "Ändern zu", action: nil, keyEquivalent: "")
+            let change = NSMenuItem(title: L("Change to"), action: nil, keyEquivalent: "")
             let sub = NSMenu()
             for p in Prop.allCases {
                 let i = ActionItem(p.title, on: p == prop) { [unowned self] in self.changeProp(p, of: id) }
@@ -285,11 +285,11 @@ final class CardStore: ObservableObject {
             change.submenu = sub
             menu.addItem(change)
         } else {
-            menu.addItem(ActionItem(item.faceUp ? "Umdrehen (Rückseite zeigen)" : "Umdrehen (Vorderseite zeigen)") { [unowned self] in self.flip(id) })
+            menu.addItem(ActionItem(item.faceUp ? L("Flip (show the back)") : L("Flip (show the front)")) { [unowned self] in self.flip(id) })
             menu.addItem(.separator())
             addSliders(to: menu, id: id)
             menu.addItem(cardsItem(selected: item.faceUp ? item : nil) { [unowned self] r, s in self.pickCard(r, s, for: id) })
-            let backs = NSMenuItem(title: "Rückseite", action: nil, keyEquivalent: "")
+            let backs = NSMenuItem(title: L("Back"), action: nil, keyEquivalent: "")
             let sub = NSMenu()
             for b in CardBack.allCases {
                 let i = ActionItem(b.title, on: !item.faceUp && item.back == b) { [unowned self] in self.pickBack(b, for: id) }
@@ -301,28 +301,28 @@ final class CardStore: ObservableObject {
             menu.addItem(deckItem())
         }
         menu.addItem(.separator())
-        menu.addItem(ActionItem("Neue Karte") { [unowned self] in self.addCard() })
+        menu.addItem(ActionItem(L("New card")) { [unowned self] in self.addCard() })
         menu.addItem(propsItem())
-        menu.addItem(ActionItem("Fixieren – Klicks gehen durch") { [unowned self] in self.setLocked(true) })
-        menu.addItem(ActionItem("Einstellungen …") { [unowned self] in self.onOpenSettings?() })
+        menu.addItem(ActionItem(L("Lock – clicks go through")) { [unowned self] in self.setLocked(true) })
+        menu.addItem(ActionItem(L("Settings …")) { [unowned self] in self.onOpenSettings?() })
         menu.addItem(.separator())
-        menu.addItem(ActionItem(item.isCard ? "Karte entfernen" : "\(item.prop!.title) entfernen") { [unowned self] in self.remove(id) })
+        menu.addItem(ActionItem(item.isCard ? L("Remove card") : String(format: L("Remove %@"), item.prop!.title)) { [unowned self] in self.remove(id) })
         return menu
     }
 
-    /// Size and turn sliders, plus "Gerade richten" when turned. `id` nil: the active item.
+    /// Size and turn sliders, plus "Straighten" when turned. `id` nil: the active item.
     func addSliders(to menu: NSMenu, id: UUID?) {
         menu.addItem(SliderItem(.size, store: self, id: id))
         menu.addItem(SliderItem(.angle, store: self, id: id))
         if let i = id.flatMap(item) ?? active, i.angle != 0 {
-            menu.addItem(ActionItem("Gerade richten") { [unowned self] in self.setAngle(0, of: id) })
+            menu.addItem(ActionItem(L("Straighten")) { [unowned self] in self.setAngle(0, of: id) })
         }
         menu.addItem(.separator())
     }
 
-    /// "Karte ▸" with the deck's cards, by rank.
+    /// "Card ▸" with the deck's cards, by rank.
     func cardsItem(selected: ItemState?, _ pick: @escaping (Rank, Int) -> Void) -> NSMenuItem {
-        let parent = NSMenuItem(title: "Karte (\(deck.title))", action: nil, keyEquivalent: "")
+        let parent = NSMenuItem(title: L("Card") + " (\(deck.title))", action: nil, keyEquivalent: "")
         let sub = NSMenu()
         for rank in deck.ranks {
             if sub.numberOfItems > 0 { sub.addItem(.separator()) }
@@ -338,7 +338,7 @@ final class CardStore: ObservableObject {
     }
 
     func deckItem() -> NSMenuItem {
-        let parent = NSMenuItem(title: "Blatt", action: nil, keyEquivalent: "")
+        let parent = NSMenuItem(title: L("Deck"), action: nil, keyEquivalent: "")
         let sub = NSMenu()
         for d in Deck.allCases {
             sub.addItem(ActionItem("\(d.title) (\(d.game))", on: d == deck) { [unowned self] in self.setDeck(d) })
@@ -348,7 +348,7 @@ final class CardStore: ObservableObject {
     }
 
     func propsItem() -> NSMenuItem {
-        let parent = NSMenuItem(title: "Dazulegen", action: nil, keyEquivalent: "")
+        let parent = NSMenuItem(title: L("Add"), action: nil, keyEquivalent: "")
         let sub = NSMenu()
         for p in Prop.allCases {
             let i = ActionItem("\(p.title) (\(p.animation))") { [unowned self] in self.addProp(p) }
@@ -378,7 +378,7 @@ final class ActionItem: NSMenuItem {
     @objc private func fire() { handler() }
 }
 
-/// "Größe" or "Drehen" with a live slider, for the menu bar menu and the right-click menu.
+/// "Size" or "Rotate" with a live slider, for the menu bar menu and the right-click menu.
 final class SliderItem: NSMenuItem {
     enum Kind { case size, angle }
 
@@ -395,7 +395,7 @@ final class SliderItem: NSMenuItem {
         self.id = id
         super.init(title: "", action: nil, keyEquivalent: "")
         let v = NSView(frame: NSRect(x: 0, y: 0, width: 260, height: 46))
-        let title = NSTextField(labelWithString: kind == .size ? "Größe" : "Drehen")
+        let title = NSTextField(labelWithString: kind == .size ? L("Size") : L("Rotate"))
         title.font = .menuFont(ofSize: 0)
         title.textColor = .secondaryLabelColor
         title.frame = NSRect(x: 20, y: 25, width: 120, height: 16)

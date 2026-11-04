@@ -45,6 +45,7 @@ Bedienen
   die Blaue, die Hundsgfickte …)
 - Dazulegen: Maß Bier (schäumt), Zigarette (raucht), Bratwurst und
   Kaffee (dampfen), Brezn. Durch Rauch und Dampf kann man durchklicken.
+- Sprache: Deutsch, wenn der Mac auf Deutsch eingestellt ist, sonst Englisch.
 
 Überall, auch im Vollbild:
 - ⌃⌥⌘K  alles ein-/ausblenden

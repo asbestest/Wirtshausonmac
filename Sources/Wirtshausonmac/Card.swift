@@ -4,7 +4,7 @@ import Foundation
 enum Deck: Int, CaseIterable, Codable {
     case french, bavarian
 
-    var title: String { ["Französisch", "Bayerisch"][rawValue] }
+    var title: String { [L("French"), L("Bavarian")][rawValue] }
     var game: String { ["Skat", "Schafkopf"][rawValue] }
 
     /// Only the cards that matter: Buben and Asse for Skat, Ober, Unter and Säue for Schafkopf.
@@ -12,7 +12,7 @@ enum Deck: Int, CaseIterable, Codable {
 
     /// Suits in their game order (highest first): Kreuz/Pik/Herz/Karo and Eichel/Gras/Herz/Schellen.
     func suitTitle(_ s: Int) -> String {
-        (self == .french ? ["Kreuz", "Pik", "Herz", "Karo"] : ["Eichel", "Gras", "Herz", "Schellen"])[s]
+        (self == .french ? [L("Clubs"), L("Spades"), L("Hearts"), L("Diamonds")] : [L("Acorns"), L("Leaves"), L("Hearts"), L("Bells")])[s]
     }
 
     var cards: [(rank: Rank, suit: Int)] { ranks.flatMap { r in (0..<4).map { (r, $0) } } }
@@ -21,7 +21,7 @@ enum Deck: Int, CaseIterable, Codable {
 enum Rank: Int, Codable {
     case jack, ace, ober, unter, sau
 
-    var title: String { ["Bube", "Ass", "Ober", "Unter", "Sau"][rawValue] }
+    var title: String { [L("Jack"), L("Ace"), "Ober", "Unter", L("Sow")][rawValue] }
 
     /// The card with the same role in the other deck (top trumps and aces swap places).
     func converted(to deck: Deck) -> Rank {
@@ -46,15 +46,15 @@ enum Suit: Int, CaseIterable {
 enum CardBack: Int, CaseIterable, Codable {
     case red, blue, green, noir, gray
 
-    var title: String { ["Rot", "Blau", "Grün", "Schwarz-Gold", "Grau"][rawValue] }
+    var title: String { [L("Red"), L("Blue"), L("Green"), L("Black and gold"), L("Grey")][rawValue] }
 }
 
 /// Little animated things to put on screen besides cards.
 enum Prop: Int, CaseIterable, Codable {
     case beer, cigarette, bratwurst, coffee, pretzel
 
-    var title: String { ["Maß Bier", "Zigarette", "Bratwurst", "Kaffee", "Brezn"][rawValue] }
-    var animation: String { ["schäumt", "raucht", "dampft", "dampft", "glänzt"][rawValue] }
+    var title: String { [L("Beer stein"), L("Cigarette"), "Bratwurst", L("Coffee"), L("Pretzel")][rawValue] }
+    var animation: String { [L("foams"), L("smokes"), L("steams"), L("steams"), L("shines")][rawValue] }
 }
 
 enum ItemFace: Hashable {
@@ -112,7 +112,7 @@ struct ItemState: Codable, Identifiable, Equatable {
 
     func title(_ deck: Deck) -> String {
         if let prop { return prop.title }
-        return faceUp ? CardNames.name(deck, rank, suit) : "Rückseite \(back.title)"
+        return faceUp ? CardNames.name(deck, rank, suit) : String(format: L("Back, %@"), back.title)
     }
 
     var center: CGPoint {
@@ -123,7 +123,7 @@ struct ItemState: Codable, Identifiable, Equatable {
 
 enum CardNames {
     static func name(_ deck: Deck, _ rank: Rank, _ suit: Int) -> String {
-        "\(deck.suitTitle(suit))-\(rank.title)"
+        String(format: L("%@ of %@"), rank.title, deck.suitTitle(suit))
     }
 
     /// What Schafkopf players call them.

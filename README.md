@@ -1,38 +1,41 @@
 # Wirtshausonmac
 
-Spielkarten und Wirtshaus-Kleinkram, die über allem schweben: über normalen Apps, Browsern und auch über Vollbild-Apps.
+Playing cards and pub odds and ends that float above everything: regular apps, browsers and even full-screen apps.
 
 ![Wirtshausonmac](docs/screenshot.jpg)
 
-- Französisches Blatt für Skat und bayerisches für Schafkopf, jeweils mit den wichtigen Karten
-- Dazu animiert: Maß Bier, Zigarette, Bratwurstsemmel, Kaffee und Brezn
-- Jede Karte ist ein eigenes kleines Fenster. Klicken oder Ziehen holt einen nicht aus dem Vollbild.
-- Größe von 8 bis 900 pt, mit zwei Fingern zoomen und drehen
-- **Fixieren** (⌃⌥⌘L): Klicks gehen durch die Karten hindurch an die App darunter
-- **Ein/Aus** (⌃⌥⌘K), auch im Vollbild
-- Typisch 11–14 MB Speicher, etwa 5 % CPU pro animiertem Ding
+- A French deck for Skat and a Bavarian one for Schafkopf, each with the cards that matter
+- Also animated: beer stein, cigarette, bratwurst, coffee and pretzel
+- Every card is its own little window. Clicking or dragging one doesn't pull you out of full screen.
+- Sizes from 8 to 900 pt, pinch to zoom and turn with two fingers to rotate
+- **Lock** (⌃⌥⌘L): clicks go through the cards to the app below
+- **On/off** (⌃⌥⌘K), even in full screen
+- Typically 11–14 MB of memory and about 5 % CPU per animated thing
+- In German when your Mac is set to German, in English otherwise
 
-## Installieren
+## Install
 
-1. Die Zip-Datei unter [Releases](../../releases/latest) laden und entpacken.
-2. `Wirtshausonmac.app` in den Programme-Ordner ziehen.
-3. Einmal im Terminal ausführen, weil die App nicht notarisiert ist:
+1. Download the zip from [Releases](../../releases/latest) and unzip it.
+2. Drag `Wirtshausonmac.app` into the Applications folder.
+3. Run this once in Terminal, because the app isn't notarized:
    ```sh
    xattr -dr com.apple.quarantine /Applications/Wirtshausonmac.app
    ```
-4. Öffnen.
+4. Open it.
 
-Benötigt macOS 14, läuft auf Apple-Chip und Intel. Ausführlich: [Zum Installieren.txt](Zum%20Installieren.txt).
+Requires macOS 14 and runs on Apple silicon and Intel. Step by step: [Install.txt](Install.txt) ([Deutsch](Zum%20Installieren.txt)).
 
-## Bauen
+## Build
 
-Es reichen die Xcode Command Line Tools.
+The Xcode Command Line Tools are enough.
 
 ```sh
-scripts/build.sh --install   # Universal-App bauen, nach /Applications kopieren, starten
-scripts/package.sh           # dist/Wirtshausonmac-<version>.zip zum Weitergeben
+scripts/build.sh --install   # build a universal app, copy to /Applications, start
+scripts/package.sh           # dist/Wirtshausonmac-<version>.zip for sharing
 ```
 
-Die bayerischen Karten in `Resources/bavarian/` schneidet `scripts/crop-bavarian.swift` aus einem Bild des ganzen Blatts. Fehlt ein Bild, wird die Karte gezeichnet.
+`scripts/crop-bavarian.swift` cuts the Bavarian cards in `Resources/bavarian/` out of a picture of the whole deck. Cards without a picture are drawn.
 
-Debug-Ausgaben des Programms im App-Bundle: `--snapshot`, `--icon`, `--settings`, `--turned` (jeweils mit PNG-Pfad), `--bench`.
+Debug output of the program inside the app bundle: `--snapshot`, `--icon`, `--settings`, `--turned` (each with a PNG path) and `--bench`.
+
+Texts are written in English in the code; the German translations are in `Resources/de.lproj/Localizable.strings`.
