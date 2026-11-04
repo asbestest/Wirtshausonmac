@@ -1,47 +1,38 @@
-# Wirtshaus covers my Mac
+# Wirtshausonmac
 
-Spielkarten und Kleinkram, die über allem schweben – über Browsern, normalen Apps und auch über Vollbild-Apps.
-Damit lassen sich kleine Dinge auf dem Bildschirm verdecken. Geschwister-Projekt von Rugonmac.
+Spielkarten und Wirtshaus-Kleinkram, die über allem schweben: über normalen Apps, Browsern und auch über Vollbild-Apps.
 
-- Jede Karte ist ein eigenes, kartengroßes Fenster: alles drumherum bleibt klickbar.
-- Klicken/Ziehen einer Karte aktiviert die App nicht – man fliegt also nicht aus dem Vollbild.
-- Größe per Schieberegler (Menüleiste, Rechtsklick-Menü, Einstellungen), 8 bis 900 pt, logarithmisch.
-  Scrollen oder Zoomen mit zwei Fingern über der Karte geht auch.
-- Drehen: Zwei-Finger-Drehgeste, ⌥ + Scrollen oder Schieberegler (rastet bei 0°/90°/180° ein).
-  Die leeren Ecken eines gedrehten Fensters lassen Klicks durch.
-- Zwei Blätter, nur die wichtigen Karten, selbst als Vektorgrafik gezeichnet und scharf in jeder Größe:
-  französisch für Skat (Buben, Asse; `CardArt.swift`) und bayerisch für Schafkopf
-  (Ober, Unter, Säue mit Eichel/Gras/Herz/Schellen; `BavarianArt.swift`). Umschalten tauscht Bube ↔ Ober, Ass ↔ Sau.
-  Das bayerische Blatt nutzt Kartenbilder aus `Resources/bavarian/` (`<farbe>-<ober|unter|sau>.jpg`, Farbe 0–3 =
-  Eichel, Gras, Herz, Schellen). Sie werden mit `swift scripts/crop-bavarian.swift Artwork/bayerisches-blatt.webp`
-  aus einem Bild des ganzen Blatts (4 Reihen × 8 Spalten) geschnitten; kleine Vorlagen rechnet das Skript mit
-  MetalFX auf 4× hoch und schärft leicht nach. Für echte Schärfe ein höher aufgelöstes Bild nehmen und das Skript
-  erneut laufen lassen. Fehlt ein Bild, wird die Karte gezeichnet.
-- Schlank: jede Karte hält nur ein fertiges Bild (kein zweiter AppKit-Puffer), Kartenbilder werden erst beim Zeichnen
-  und nur in der nötigen Größe dekodiert, große Dinge rendern mit höchstens ~1100 px, das Einstellungsfenster wird
-  beim Schließen freigegeben. Typisch 11–14 MB Speicher.
-- Animierte Dinge (`PropArt.swift`): Maß Bier, Zigarette, Bratwurstsemmel, Kaffee, Brezn. Feste Ebenen werden
-  einmal gerendert, pro Bild (20 fps) nur Rauch, Dampf, Schaum usw. – ca. 5 % CPU pro Ding.
-  Rauch und Dampf lassen Klicks durch.
-- **Fixieren** (⌃⌥⌘L): Karten lassen jeden Klick an die App darunter durch und können nicht verrutschen.
-- **Ein/Aus** (⌃⌥⌘K), systemweit, auch im Vollbild.
+![Wirtshausonmac](docs/screenshot.jpg)
+
+- Französisches Blatt für Skat und bayerisches für Schafkopf, jeweils mit den wichtigen Karten
+- Dazu animiert: Maß Bier, Zigarette, Bratwurstsemmel, Kaffee und Brezn
+- Jede Karte ist ein eigenes kleines Fenster. Klicken oder Ziehen holt einen nicht aus dem Vollbild.
+- Größe von 8 bis 900 pt, mit zwei Fingern zoomen und drehen
+- **Fixieren** (⌃⌥⌘L): Klicks gehen durch die Karten hindurch an die App darunter
+- **Ein/Aus** (⌃⌥⌘K), auch im Vollbild
+- Typisch 11–14 MB Speicher, etwa 5 % CPU pro animiertem Ding
+
+## Installieren
+
+1. Die Zip-Datei unter [Releases](../../releases/latest) laden und entpacken.
+2. `Wirtshausonmac.app` in den Programme-Ordner ziehen.
+3. Einmal im Terminal ausführen, weil die App nicht notarisiert ist:
+   ```sh
+   xattr -dr com.apple.quarantine /Applications/Wirtshausonmac.app
+   ```
+4. Öffnen.
+
+Benötigt macOS 14, läuft auf Apple-Chip und Intel. Ausführlich: [Zum Installieren.txt](Zum%20Installieren.txt).
 
 ## Bauen
 
+Es reichen die Xcode Command Line Tools.
+
 ```sh
-scripts/build.sh            # build/Wirtshausonmac.app (Apple silicon + Intel)
-scripts/build.sh --install  # nach /Applications kopieren und starten
-scripts/package.sh          # dist/Wirtshausonmac-<version>.zip zum Weitergeben
+scripts/build.sh --install   # Universal-App bauen, nach /Applications kopieren, starten
+scripts/package.sh           # dist/Wirtshausonmac-<version>.zip zum Weitergeben
 ```
 
-Braucht nur die Xcode Command Line Tools. Debug (Programm `Wirtshausonmac` im App-Bundle): `--snapshot cards.png` rendert alle Karten,
-`--icon icon.png` das App-Icon, `--settings settings.png` das Einstellungsfenster, `--turned turned.png` gedrehte Dinge samt Klickbereich, `--bench` misst die Zeichenzeit der Dinge.
+Die bayerischen Karten in `Resources/bavarian/` schneidet `scripts/crop-bavarian.swift` aus einem Bild des ganzen Blatts. Fehlt ein Bild, wird die Karte gezeichnet.
 
-Hieß früher Cardonmac und „Wirtshaus covers my Mac.app“; die Einstellungen von dort werden beim ersten Start übernommen.
-
-## Weitergeben
-
-Die Zip-Datei aus `dist/` verschicken; die enthaltene „Zum Installieren.txt“ erklärt den ersten Start.
-Die App ist nur ad-hoc signiert, daher fragt macOS beim ersten Öffnen nach
-(Systemeinstellungen → Datenschutz & Sicherheit → „Trotzdem öffnen“). Ohne diese Abfrage ginge es nur mit
-einer Developer-ID-Signatur und Notarisierung (Apple Developer Program).
+Debug-Ausgaben des Programms im App-Bundle: `--snapshot`, `--icon`, `--settings`, `--turned` (jeweils mit PNG-Pfad), `--bench`.

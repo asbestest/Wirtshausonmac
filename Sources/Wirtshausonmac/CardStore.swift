@@ -48,11 +48,18 @@ final class CardStore: ObservableObject {
         if let m = NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved], handler: { moved($0); return $0 }) { monitors.append(m) }
     }
 
-    /// The app was called "Wirtshaus covers my Mac" and Cardonmac before; take over the newest layout once.
+    /// The app had other names and bundle ids before; take over the newest layout once.
     private static func migrateOldSettings() {
         let d = UserDefaults.standard
         guard d.object(forKey: "items") == nil else { return }
-        for id in ["io.github.asbestest.wirtshaus", "io.github.asbestest.cardonmac"] {
+        // saved under any earlier bundle id: ….wirtshausonmac, then ….wirtshaus, then ….cardonmac
+        let own = Bundle.main.bundleIdentifier ?? ""
+        let prefs = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Preferences")
+        let files = (try? FileManager.default.contentsOfDirectory(atPath: prefs.path)) ?? []
+        let ids = [".wirtshausonmac", ".wirtshaus", ".cardonmac"].flatMap { name in
+            files.filter { $0.hasSuffix(name + ".plist") }.map { String($0.dropLast(".plist".count)) }
+        }
+        for id in ids where id != own {
             guard let old = UserDefaults(suiteName: id), old.object(forKey: "items") != nil else { continue }
             for key in ["items", "deck", "visible", "locked", "didShowWelcome"] {
                 if let v = old.object(forKey: key) { d.set(v, forKey: key) }
